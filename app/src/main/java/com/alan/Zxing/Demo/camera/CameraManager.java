@@ -237,7 +237,7 @@ public final class CameraManager {
 //        width = MAX_FRAME_HEIGHT;
 //      }
 //      int height = width ;//正方形框
-      int height = width/4 ;//矩形框，条形码
+      int height = width/6 ;//矩形框，条形码
       //限制最大最小值
 //      if (height < MIN_FRAME_HEIGHT) {
 //        height = MIN_FRAME_HEIGHT;
@@ -247,7 +247,7 @@ public final class CameraManager {
       //确定左上角的位置(也就是确定扫描框的位置)
       int leftOffset = (screenResolution.x - width) / 2;
       int topOffset = (screenResolution.y - height - 20) / 2;
-      framingRect = new Rect(leftOffset, topOffset, leftOffset + width, topOffset + height);
+      framingRect = new Rect(leftOffset, topOffset, leftOffset +  (int)(width*1.0), topOffset + (int)(height*1.0));
       Log.d(TAG, "Calculated framing rect: " + framingRect);
     }
     return framingRect;
@@ -285,7 +285,7 @@ public final class CameraManager {
       //确定左上角的位置(也就是确定扫描框的位置)
       int leftOffset = (screenResolution.x - width) / 2;
       int topOffset = (screenResolution.y - height - 20) / 2;
-      framingRect = new Rect(leftOffset, topOffset, leftOffset + (int)(width*1.3), topOffset + (int)(height*1.3));
+      framingRect = new Rect(leftOffset, topOffset, leftOffset + (int)(width*1.0), topOffset + (int)(height*1.0));
 //      framingRect = new Rect(0, 0,  width,height);
       Log.d(TAG, "Calculated framing rect: " + framingRect);
     }
@@ -298,7 +298,7 @@ public final class CameraManager {
    */
   public Rect getFramingRectInPreview() {
     if (framingRectInPreview == null) {
-      Rect rect = new Rect(getRealScanFramingRect());
+      Rect rect = new Rect(getFramingRect());
       Point cameraResolution = configManager.getCameraResolution();
       Point screenResolution = configManager.getScreenResolution();
 //      //横屏模式（landscape mode）

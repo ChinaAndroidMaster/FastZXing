@@ -24,16 +24,18 @@ public class FastCaptureActivity  extends CaptureActivity {
         int screenHeight = dm.heightPixels;
         int drawWidth = screenWidth * 8/10;
         int drawHeight = screenWidth * 3/10;
-        int realWidth = screenWidth * 9/10;
-        int realHeight = screenWidth * 3/10;
+        int realWidth = screenWidth * 8/10;
+        int realHeight = screenWidth * 4/10;
         setScanRectWidthHeight(drawWidth,drawHeight,realWidth,realHeight,true);
-        //设置扫描结果回调
-        setResultCallBack(new ResultCallBack() {
-            @Override
-            public void decodeResult(String result) {
+//        //设置扫描结果回调
+//        FastZXing.getInstance().setResultCallBack(new ResultCallBack() {
+//            @Override
+//            public void decodeResult(String result, CaptureActivity context) {
 //                restartCameraScan();//重新开启扫描
-            }
-        });
+//            }
+//
+//
+//        });
     }
 
 

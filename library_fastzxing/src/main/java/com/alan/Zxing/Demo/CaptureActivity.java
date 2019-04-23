@@ -121,10 +121,8 @@ public class CaptureActivity extends Activity implements Callback ,OnClickListen
 
 
 	public interface ResultCallBack{
-		void decodeResult(String result);
+		void decodeResult(String result,CaptureActivity context);
 	}
-	//扫描结果-外部回调
-	private ResultCallBack mResultCallBack;
 
 
 	/** Called when the activity is first created. */
@@ -228,9 +226,6 @@ public class CaptureActivity extends Activity implements Callback ,OnClickListen
 	}
 
 
-	public void setResultCallBack(ResultCallBack resultCallBack) {
-		mResultCallBack = resultCallBack;
-	}
 
 	/**
 	 * 获取相册选择的图片
@@ -574,9 +569,10 @@ public class CaptureActivity extends Activity implements Callback ,OnClickListen
 //				+ obj.getText());
 		Log.i("TAG","解码结果--->"+ obj.getBarcodeFormat().toString() + ":"+ obj.getText());
 //		goPageURL(obj.getText());
+
 		//结果回调
-		if(mResultCallBack !=null){
-			mResultCallBack.decodeResult(obj.getText());
+		if(FastZXing.getInstance().sResultCallBack != null){
+			FastZXing.getInstance().sResultCallBack.decodeResult(obj.getText(),this);
 		}
 
 

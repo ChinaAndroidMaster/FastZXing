@@ -1,5 +1,6 @@
 package com.alan.Zxing.Demo;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -30,6 +31,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,6 +44,7 @@ import android.widget.Toast;
 import com.alan.Zxing.Demo.camera.CameraManager;
 import com.alan.Zxing.Demo.decoding.CaptureActivityHandler;
 import com.alan.Zxing.Demo.decoding.InactivityTimer;
+import com.alan.Zxing.Demo.util.PermissionsChecker;
 import com.alan.Zxing.Demo.view.ViewfinderView;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.BinaryBitmap;
@@ -116,9 +119,11 @@ public class CaptureActivity extends Activity implements Callback ,OnClickListen
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.main_zxing);
 		//屏幕一直亮
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
 		//初始化 CameraManager
 		CameraManager.init(getApplication());
 
@@ -136,6 +141,12 @@ public class CaptureActivity extends Activity implements Callback ,OnClickListen
 		tvCenterHint = (TextView) findViewById(R.id.tv_center_hint_fast_zxing);
 		hasSurface = false;
 		inactivityTimer = new InactivityTimer(this);
+
+		//6.0权限申请
+		PermissionsChecker checker = new PermissionsChecker(this);
+		checker.checkPermissions(Manifest.permission.CAMERA,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+                );
 
 
 
@@ -338,7 +349,7 @@ public class CaptureActivity extends Activity implements Callback ,OnClickListen
 		hints.put(EncodeHintType.CHARACTER_SET, "utf-8");
 
 
-//		Hashtable<DecodeHintType, Object> hints = new Hashtable<DecodeHintType, Object>(3);
+//		Map<DecodeHintType, Object> hints = new Hashtable<DecodeHintType, Object>(3);
 //		 if (decodeFormats == null || decodeFormats.isEmpty()) {
 //	    	 decodeFormats = new Vector<BarcodeFormat>();
 //	    	 decodeFormats.addAll(DecodeFormatManager.ONE_D_FORMATS);
@@ -348,6 +359,7 @@ public class CaptureActivity extends Activity implements Callback ,OnClickListen
 //	    }
 //	    hints.put(DecodeHintType.POSSIBLE_FORMATS, decodeFormats);
 //
+//		 characterSet ="utf-8";
 //	    if (characterSet != null) {
 //	      hints.put(DecodeHintType.CHARACTER_SET, characterSet);
 //	    }
@@ -355,6 +367,11 @@ public class CaptureActivity extends Activity implements Callback ,OnClickListen
 //	    		new ViewfinderResultPointCallback(this.getViewfinderView()));
 
 
+//		int width = bitmap.getWidth();
+//		int height = bitmap.getHeight();
+//		int[] pixels = new int[width * height];
+//		bitmap.getPixels(pixels, 0, width, 0, 0, width, height);
+//		RGBLuminanceSource source = new RGBLuminanceSource(width,height,pixels);
 		RGBLuminanceSource source = new RGBLuminanceSource(bitmap);
 		BinaryBitmap bitmap1 = new BinaryBitmap(new HybridBinarizer(source));
 		Result result;

@@ -295,7 +295,7 @@ public final class CameraManager {
       //确定左上角的位置(也就是确定扫描框的位置)
       int leftOffset = (screenResolution.x - width) / 2;
       int topOffset = (screenResolution.y - height - 20) / 2;
-      framingRect = new Rect(leftOffset, topOffset, leftOffset + (int)(width*1.3), topOffset + (int)(height*1.3));
+      framingRect = new Rect(leftOffset, topOffset, leftOffset + (int)(width*1.0), topOffset + (int)(height*1.0));
 //      framingRect = new Rect(0, 0,  width,height);
       Log.d(TAG, "Calculated framing rect: " + framingRect);
     }

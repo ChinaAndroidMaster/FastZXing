@@ -16,16 +16,14 @@
 
 package com.alan.Zxing.Demo.decoding;
 
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
+
 import com.alan.Zxing.Demo.CaptureActivity;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.DecodeHintType;
 import com.google.zxing.ResultPointCallback;
-
-import android.content.SharedPreferences;
-import android.os.Handler;
-import android.os.Looper;
-import android.preference.PreferenceManager;
-import android.util.Log;
 
 import java.util.Hashtable;
 import java.util.Vector;
@@ -82,6 +80,8 @@ final class DecodeThread extends Thread {
     Log.d("TAG", "DecodeThread-characterSet--->"+characterSet);
     if (characterSet != null) {
       hints.put(DecodeHintType.CHARACTER_SET, characterSet);
+    }else{
+      hints.put(DecodeHintType.CHARACTER_SET, "utf-8");
     }
 
     hints.put(DecodeHintType.NEED_RESULT_POINT_CALLBACK, resultPointCallback);

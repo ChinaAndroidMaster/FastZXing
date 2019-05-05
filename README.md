@@ -22,7 +22,7 @@ A custom ZXing qr code scanning, faster and more applicable
   Add the dependency:
   ```
   	dependencies {
-	        implementation 'com.github.sunnydlee:FastZXing:1.2.0'
+	        implementation 'com.github.sunnydlee:FastZXing:v1.2.1'
 	}
   ```
 
